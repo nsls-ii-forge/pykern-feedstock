@@ -1,0 +1,61 @@
+{% set name = "pykern" %}
+{% set version = "20190922.150150" %}
+{% set file_ext = "zip" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "0fcc6532d3b37271df8c66a9b6fba0e05b31abf1aa0d323b5e899790d20c3004" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ file_ext }}
+  {{ hash_type }}: {{ hash_value }}
+
+build:
+  noarch: python
+  number: 0
+  entry_points:
+    - pykern = pykern.pykern_console:main
+  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+
+requirements:
+  build:
+    - python
+    - pip
+  run:
+    - python
+    - argh >=0.26
+    - future >=0.14
+    - github3.py >=1.1
+    - jinja2 >=2.7
+    - py-cpuinfo >=0.2
+    - py >=1.4
+    - pytest >=2.7,<=3.2.3
+    - pytest-forked >=0.2
+    - pytz >=2015.4
+    - pyyaml >=3.0
+    - requests >=2.18
+    - setuptools >=20.3
+    - six >=1.9
+    - sphinx >=1.3.5
+    - twine >=1.9
+    - tox >=1.9
+    - path.py >=7.7.1
+    - python-dateutil >=2.4.2
+
+test:
+  imports:
+    - pykern
+    - pykern.pkcli
+  commands:
+    - pykern --help
+  requires:
+    - pytest
+
+about:
+  home: http://pykern.org
+  license: Apache Software License
+  license_family: APACHE
+  license_file: LICENSE
+  summary: Python application support
