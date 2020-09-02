@@ -1,23 +1,20 @@
 {% set name = "pykern" %}
-{% set version = "20190922.150150" %}
-{% set file_ext = "zip" %}
-{% set hash_type = "sha256" %}
-{% set hash_value = "0fcc6532d3b37271df8c66a9b6fba0e05b31abf1aa0d323b5e899790d20c3004" %}
+{% set version = "20200902.175301" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ file_ext }}
-  {{ hash_type }}: {{ hash_value }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
+  sha256: 4d67407b50dc58f1bfc6773a15dd2e9257f0fe7f0fd6ae413d22006c88495cd9
 
 build:
   noarch: python
   number: 0
   entry_points:
     - pykern = pykern.pykern_console:main
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
